@@ -40,8 +40,21 @@ class Patient (models.Model):
         Village, on_delete=models.CASCADE, default=None, null=True)
     # single/married/separated/divorced/widowed
     maritalstatus = models.CharField(default=None, max_length=15, null=True)
+    habits = models.JSONField(null=True)
+    # FORMAT =
+    # {
+    #    smoking : bool,
+    #    drinking : bool
+    # }
 
-    # Basic Vitals
+
+
+    def __str__(self):
+        return self.name
+
+class PatientReport (models.Model):
+    patient = models.ForeignKey(Patient,on_delete=models.CASCADE)
+        # Basic Vitals
     BasicVitals = models.JSONField(null=True)
 
     # FORMAT =
@@ -66,15 +79,6 @@ class Patient (models.Model):
     # Bleeding :  True or False,
     # Infection : True or False,
     # others : "Text"
-    # }
-
-    report = models.JSONField(null=True)
-    # Free For ALL
-    habits = models.JSONField(null=True)
-    # FORMAT =
-    # {
-    #    smoking : bool,
-    #    drinking : bool
     # }
 
     # Pedal Fields
@@ -143,3 +147,5 @@ class Patient (models.Model):
     #    plat_count = models.DecimalField( max_digits=5, decimal_places=2,blank=True)
     # }
     type_data = models.CharField(max_length=50,blank = True,null = True)
+    
+
